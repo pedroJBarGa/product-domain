@@ -1,8 +1,8 @@
-#Produt Domain
+# Produt Domain
 
 Product es  una aplicación que aporta un servicio para el precio determinado que va a tener un producto entre una fecha en concreto
 
-## Installation
+## Instalación
 
 Use la siguiente url para clonar el proyecto del repositorio en la IDE que prefiera:
 
@@ -11,7 +11,7 @@ https://github.com/pedroJBarGa/product-domain.git
 SB es compatible con Maven 3.2 o superior. Se puede consultar los pasos para realizar su instalación en la siguiente dirección http://maven.apache.org/, para este proyecto en concreto se ha utilizado 3.9.8
 Es necesario tener  JDK 17 para este proyecto.
 
-## Usage
+## Uso
 
 Ejecutemos el siguiente comando para compilar el proyecto:
 
