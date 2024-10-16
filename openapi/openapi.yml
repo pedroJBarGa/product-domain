@@ -1,0 +1,87 @@
+openapi: 3.0.3
+info:
+  title: Openapi product services
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8080/api/product-service/
+    description: local environment
+tags:
+  - name: product
+    description: Available endpoints to manage products
+paths:
+  /api/product-service/v1/products/{productId}:
+    get:
+      tags:
+        - product
+      summary: get
+      description: get product
+      operationId: getProduct
+      parameters:
+        - name: productId
+          in: path
+          description: ID of product to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: brand
+          in: query
+          schema:
+            type: integer
+            format: int32
+          required: true
+        - name: applicationDate
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: product not found
+        '405':
+          description: Validation exception
+components:
+  schemas:
+    ProductResponse:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+          example: 35455
+        brandId:
+          type: integer
+          format: int32
+          example: 1
+        rateApply:
+          type: integer
+          format: int32
+          example: 2
+        startDate:
+          type: string
+          format: date-time
+          example: "2022-05-17 11:00:00"
+        endDate:
+          type: string
+          format: date-time
+          example: "2022-05-17 11:00:00"
+        finalPrice:
+          type: number
+          multipleOf: 0.01
