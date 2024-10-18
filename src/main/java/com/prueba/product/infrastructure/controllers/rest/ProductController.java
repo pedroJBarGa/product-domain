@@ -2,6 +2,7 @@ package com.prueba.product.infrastructure.controllers.rest;
 
 import java.time.OffsetDateTime;
 
+import com.prueba.product.domain.query.GetProductQuery;
 import com.prueba.product.domain.services.in.GetProductUseCase;
 import com.prueba.product.domain.model.Product;
 import com.prueba.product.infrastructure.controllers.mappers.ProductResponseMapper;
@@ -20,7 +21,11 @@ public class ProductController implements ProductApi {
   @Override
   public ResponseEntity<ProductResponse> getProduct(Long productId, Integer brand,
       OffsetDateTime applicationDate) {
-    Product product = service.findProduct(productId, brand, applicationDate.toLocalDateTime());
+    Product product = service.findProduct(GetProductQuery.builder()
+            .productId(productId)
+            .brand(brand)
+            .applicationDate(applicationDate.toLocalDateTime())
+            .build());
     return ResponseEntity.ok(mapper.mapProductToProductResponse(product));
   }
 

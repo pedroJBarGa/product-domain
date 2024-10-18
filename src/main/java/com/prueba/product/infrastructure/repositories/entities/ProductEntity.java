@@ -2,7 +2,6 @@ package com.prueba.product.infrastructure.repositories.entities;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -12,9 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Entity

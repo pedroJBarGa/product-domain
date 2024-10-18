@@ -13,12 +13,12 @@ public class ProductResponseMapper {
     public ProductResponse mapProductToProductResponse(final Product product) {
         ProductResponse response = new ProductResponse();
 
-        response.productId(product.getProductId());
-        response.brandId(product.getBrandId());
-        response.startDate(OffsetDateTime.of(product.getStartDate(), ZoneOffset.UTC));
-        response.endDate(OffsetDateTime.of(product.getEndDate(), ZoneOffset.UTC));
-        response.rateApply(product.getRateApply());
-        response.finalPrice(product.getPrice());
+        response.productId(product.productId());
+        response.brandId(product.brandId());
+        response.startDate(OffsetDateTime.of(product.startDate(), ZoneOffset.UTC));
+        response.endDate(OffsetDateTime.of(product.endDate(), ZoneOffset.UTC));
+        response.rateApply(product.rateApply());
+        response.finalPrice(product.price());
 
         return response;
     }

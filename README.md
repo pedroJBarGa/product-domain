@@ -1,6 +1,12 @@
 # Produt Domain
 
-Product es  una aplicación que aporta un servicio para el precio determinado que va a tener un producto entre una fecha en concreto
+Product es  una aplicación que aporta un servicio para el precio determinado que va a tener un producto entre una fecha en concreto.
+
+Este proyecto se ha desarrollado con arquitectura hexagonal y java 17, se ha utlizado para su desarrollo la metodología TDD, aplicando una seríe de patrones para el correcto funcionamiento, entendimiento y mantenimiento del codigo, como son los siguientes:
+
+- Adapter
+- Builder (El cual queda reflejado a la hora de utilizar la anotación builder de lombok)
+- CQRS 
 
 ## Instalación
 
