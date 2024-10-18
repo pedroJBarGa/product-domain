@@ -2,6 +2,7 @@ package com.prueba.product.infrastructure.repositories;
 
 import com.prueba.product.domain.exception.ProductNotFoundException;
 import com.prueba.product.domain.model.Product;
+import com.prueba.product.domain.query.GetProductQuery;
 import com.prueba.product.domain.services.out.ProductRepositoryPort;
 import com.prueba.product.infrastructure.repositories.mappers.ProductMapper;
 import lombok.AllArgsConstructor;
@@ -17,9 +18,9 @@ public class JpaProductRepositoryAdapter implements ProductRepositoryPort {
     private final ProductMapper mapper;
 
     @Override
-    public Product findProduct(final long productId, final Integer brand, final LocalDateTime applicationDate) {
-        return mapper.mapEntityToProduct(repository.findProduct(productId, brand, applicationDate)
-                .orElseThrow(() ->new ProductNotFoundException(productId)));
+    public Product findProduct(final GetProductQuery productQuery) {
+        return mapper.mapEntityToProduct(repository.findProduct(productQuery.productId(), productQuery.brand(), productQuery.applicationDate())
+                .orElseThrow(() ->new ProductNotFoundException(productQuery.productId())));
     }
 
 }

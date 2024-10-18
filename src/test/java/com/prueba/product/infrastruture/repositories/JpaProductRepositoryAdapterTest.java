@@ -2,6 +2,7 @@ package com.prueba.product.infrastruture.repositories;
 
 import com.prueba.product.domain.exception.ProductNotFoundException;
 import com.prueba.product.domain.model.Product;
+import com.prueba.product.domain.query.GetProductQuery;
 import com.prueba.product.infrastructure.controllers.rest.model.ProductResponse;
 import com.prueba.product.infrastructure.repositories.JpaProductRepository;
 import com.prueba.product.infrastructure.repositories.JpaProductRepositoryAdapter;
@@ -44,10 +45,10 @@ public class JpaProductRepositoryAdapterTest {
                 .thenReturn(productEntity);
         when(mapper.mapEntityToProduct(productEntity.get())).thenCallRealMethod();
 
-        Product product = adapter.findProduct(PRODUCT_ID,BRAND_VALUE, LocalDateTime.parse(DATE, getDateTimeFormat()));
+        Product product = adapter.findProduct(build(PRODUCT_ID,BRAND_VALUE, LocalDateTime.parse(DATE, getDateTimeFormat())));
 
-        assertEquals(product.getProductId(), PRODUCT_ID);
-        assertEquals(product.getBrandId(), BRAND_VALUE);
+        assertEquals(product.productId(), PRODUCT_ID);
+        assertEquals(product.brandId(), BRAND_VALUE);
     }
 
     @Test
@@ -56,7 +57,7 @@ public class JpaProductRepositoryAdapterTest {
                 .thenReturn(Optional.empty());
 
         assertThrows(ProductNotFoundException.class,
-                () -> adapter.findProduct(PRODUCT_ID,BRAND_VALUE, LocalDateTime.parse(DATE, getDateTimeFormat())));
+                () -> adapter.findProduct(build(PRODUCT_ID,BRAND_VALUE, LocalDateTime.parse(DATE, getDateTimeFormat()))));
 
     }
 
@@ -68,6 +69,14 @@ public class JpaProductRepositoryAdapterTest {
     }
     private GroupEntity getGroupEntity() {
         return new GroupEntity(1, "ZARA");
+    }
+
+    private GetProductQuery build(final long productId, final Integer brandId, final LocalDateTime applicationDate) {
+        return GetProductQuery.builder()
+                .productId(productId)
+                .brand(brandId)
+                .applicationDate(applicationDate)
+                .build();
     }
 
     private DateTimeFormatter getDateTimeFormat() {

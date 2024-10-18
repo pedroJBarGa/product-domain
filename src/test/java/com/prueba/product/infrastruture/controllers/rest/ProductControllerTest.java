@@ -2,6 +2,7 @@ package com.prueba.product.infrastruture.controllers.rest;
 
 import com.prueba.product.domain.exception.ProductNotFoundException;
 import com.prueba.product.domain.model.Product;
+import com.prueba.product.domain.query.GetProductQuery;
 import com.prueba.product.domain.services.in.GetProductUseCase;
 import com.prueba.product.infrastructure.controllers.mappers.ProductResponseMapper;
 import com.prueba.product.infrastructure.controllers.rest.ProductController;
@@ -37,7 +38,7 @@ public class ProductControllerTest {
 
     @Test
     public void whenProductOKThenStatus200() {
-        when(useCase.findProduct(PRODUCT_ID, BRAND_VALUE, LocalDateTime.parse(DATE, getDateTimeFormat()))).thenReturn(getProduct());
+        when(useCase.findProduct(build(PRODUCT_ID, BRAND_VALUE, LocalDateTime.parse(DATE, getDateTimeFormat())))).thenReturn(getProduct());
         when(mapper.mapProductToProductResponse(getProduct())).thenCallRealMethod();
 
         ResponseEntity<ProductResponse> productResponse = controller.getProduct(PRODUCT_ID,BRAND_VALUE, OffsetDateTime.parse("2020-06-14T10:00:00Z"));
@@ -49,7 +50,7 @@ public class ProductControllerTest {
 
     @Test
     public void whenProductNotFoundThen404() {
-        when(useCase.findProduct(PRODUCT_ID, BRAND_VALUE, LocalDateTime.parse(DATE, getDateTimeFormat())))
+        when(useCase.findProduct(build(PRODUCT_ID, BRAND_VALUE, LocalDateTime.parse(DATE, getDateTimeFormat()))))
                 .thenThrow(ProductNotFoundException.class);
 
         assertThrows(ProductNotFoundException.class,
@@ -67,7 +68,16 @@ public class ProductControllerTest {
                 .build();
     }
 
+    private GetProductQuery build(final long productId, final Integer brandId, final LocalDateTime applicationDate) {
+        return GetProductQuery.builder()
+                .productId(productId)
+                .brand(brandId)
+                .applicationDate(applicationDate)
+                .build();
+    }
+
     private DateTimeFormatter getDateTimeFormat() {
         return DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
     }
+
 }
