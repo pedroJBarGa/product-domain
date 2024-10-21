@@ -76,3 +76,21 @@ Esto es gracias al plugin agregado al pom.xml
         </executions>
     </plugin>
 ```
+
+Cada vez que se haga un nuevo desarrollo, habrá que comprobar la cobertura con el plugin de jacoco agregado al proyecto. Para verificar la cobertura, tendremos que ejecutar el siguiente comando:
+
+```cmd
+mvn clean verify
+```
+Si el proceso termina correctamente es que se sigue teniendo una cobertura mayor al 90%, el cual se ha asignado en la configuración del pom.
+En el caso de no tener dicha cobertura, podemos ejecutar el comando:
+
+```cmd
+mvn clean test
+```
+
+Una vez termine, abrimos en el navegador el siguiente fichero /target/site/jacoco/index.html
+
+![img.png](img.png)
+
+Vendrán todos los procentajes de cobertura de los distintos ficheros, para así ver que ficheros están haciendo que la cobertura baje de las señalada en la configuración.

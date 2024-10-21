@@ -110,4 +110,19 @@ class ProductApplicationTests {
 		assertTrue(responseJsonString.contains("\"productId\":35455"));
 		assertTrue(responseJsonString.contains("\"finalPrice\":38.95"));
 	}
+
+	@Test
+	void test_exception_notfound() throws Exception {
+		final String date = "2020-06-16T21:00:00Z";
+
+		String responseJsonString = mvc.perform(
+						MockMvcRequestBuilders
+								.get(PATH + 35456 + "?"
+										+ BRAND + EQUAL + BRAND_VALUE + AND
+										+ APPLICATION_DATE + EQUAL + date)
+				)
+				.andExpect(status().isNotFound())
+				.andReturn().getResponse().getContentAsString();
+
+	}
 }
