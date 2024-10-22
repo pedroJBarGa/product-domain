@@ -27,6 +27,7 @@ public class ProductControllerTest {
     private static final long PRODUCT_ID = 35455;
     private static final int BRAND_VALUE = 1;
     private static final String DATE = "2020-06-14T10:00:00Z";
+    private static final String DATE_FORMATTER = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
     @Mock
     private ProductResponseMapper mapper;
@@ -41,7 +42,7 @@ public class ProductControllerTest {
         when(useCase.findProduct(build(PRODUCT_ID, BRAND_VALUE, LocalDateTime.parse(DATE, getDateTimeFormat())))).thenReturn(getProduct());
         when(mapper.mapProductToProductResponse(getProduct())).thenCallRealMethod();
 
-        ResponseEntity<ProductResponse> productResponse = controller.getProduct(PRODUCT_ID,BRAND_VALUE, OffsetDateTime.parse("2020-06-14T10:00:00Z"));
+        ResponseEntity<ProductResponse> productResponse = controller.getProduct(PRODUCT_ID,BRAND_VALUE, OffsetDateTime.parse(DATE));
 
         assertTrue(productResponse.getStatusCode().is2xxSuccessful());
         assertEquals(productResponse.getBody().getProductId(), PRODUCT_ID);
@@ -54,7 +55,7 @@ public class ProductControllerTest {
                 .thenThrow(ProductNotFoundException.class);
 
         assertThrows(ProductNotFoundException.class,
-                () -> controller.getProduct(PRODUCT_ID,BRAND_VALUE, OffsetDateTime.parse("2020-06-14T10:00:00Z")));
+                () -> controller.getProduct(PRODUCT_ID,BRAND_VALUE, OffsetDateTime.parse(DATE)));
     }
 
     private Product getProduct() {
@@ -63,7 +64,7 @@ public class ProductControllerTest {
                 .brandId(BRAND_VALUE)
                 .price(BigDecimal.valueOf(35455))
                 .endDate(LocalDateTime.parse("2020-06-16T21:00:00Z", getDateTimeFormat()))
-                .startDate(LocalDateTime.parse("2020-06-16T21:00:00Z", getDateTimeFormat()))
+                .startDate(LocalDateTime.parse("2020-06-16T10:00:00Z", getDateTimeFormat()))
                 .rateApply(1)
                 .build();
     }
@@ -77,7 +78,7 @@ public class ProductControllerTest {
     }
 
     private DateTimeFormatter getDateTimeFormat() {
-        return DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        return DateTimeFormatter.ofPattern(DATE_FORMATTER);
     }
 
 }
