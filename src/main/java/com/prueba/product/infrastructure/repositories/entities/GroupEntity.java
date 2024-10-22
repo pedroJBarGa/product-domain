@@ -4,12 +4,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "group_table")
 public class GroupEntity {
 
@@ -20,12 +20,4 @@ public class GroupEntity {
   @Column(name = "name")
   private String name;
 
-  public GroupEntity() {
-
-  }
-
-  public GroupEntity(Integer brandId, String name) {
-    this.brandId = brandId;
-    this.name = name;
-  }
 }

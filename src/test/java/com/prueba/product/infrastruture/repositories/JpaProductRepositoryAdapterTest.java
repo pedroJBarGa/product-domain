@@ -29,6 +29,8 @@ public class JpaProductRepositoryAdapterTest {
     private static final long PRODUCT_ID = 35455;
     private static final int BRAND_VALUE = 1;
     private static final String DATE = "2020-06-14T10:00:00Z";
+    private static final String DATE_FORMATTER = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    private static final String GROUP_NAME = "ZARA";
 
     @Mock
     private JpaProductRepository repository;
@@ -68,7 +70,7 @@ public class JpaProductRepositoryAdapterTest {
                 , 1, 1, BigDecimal.valueOf(35455), "EUR", getGroupEntity()));
     }
     private GroupEntity getGroupEntity() {
-        return new GroupEntity(1, "ZARA");
+        return new GroupEntity(1, GROUP_NAME);
     }
 
     private GetProductQuery build(final long productId, final Integer brandId, final LocalDateTime applicationDate) {
@@ -80,6 +82,6 @@ public class JpaProductRepositoryAdapterTest {
     }
 
     private DateTimeFormatter getDateTimeFormat() {
-        return DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        return DateTimeFormatter.ofPattern(DATE_FORMATTER);
     }
 }
